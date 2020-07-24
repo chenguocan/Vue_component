@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <fruit-list :list="list">
+        <template v-slot:item="slotProps">
+          <div class="item">
+            {{slotProps}}
+          </div>
+        </template>
+      </fruit-list>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.component("fruit-list", {
+      props: ["list"],
+      render: function (createElment) {
+        var id = this.$slots.id;
+        var name = this.$slots.name;
+        return createElment("ul", [
+          createElement("li", id),
+          createElement("li", name),
+        ]);
+      },
+    });
+    let app = new Vue({
+      el: "#app",
+      data: {
+        list: [
+          {
+            id: 1,
+            name: "apple",
+          },
+          {
+            id: 2,
+            name: "orange",
+          },
+          {
+            id: 3,
+            name: "banana",
+          },
+        ],
+      },
+    });
+  </script>
+</html>

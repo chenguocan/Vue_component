@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #app {
+        border: 1px solid red;
+        height: 500px;
+        width: 400px;
+      }
+      .title {
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        border: 1px solid blue;
+      }
+      .counttitle {
+        height: 40px;
+        line-height: 40px;
+        background-color: yellow;
+        text-align: center;
+        color: red;
+        border: 1px solid black;
+      }
+      .goods_list {
+        border: 1px solid green;
+      }
+      .goods_list > ul > li {
+        height: 50px;
+        line-height: 50px;
+        padding-left: 50px;
+        border: 1px solid gray;
+      }
+      .goods_list > ul > li > button {
+        cursor: pointer;
+        width: 13px;
+        border: 0px;
+        background-color: gray;
+      }
+      .goods_list > ul > li > input {
+        width: 80px;
+      }
+      .goods_list > ul > li > span {
+        display: inline-block;
+        width: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <title-com :user="user"></title-com>
+      <goods-list
+        :goods="goods"
+        v-on:change-number="add($event)"
+        v-on:subtract-number="subtract($event)"
+        v-on:delete-number="del($event)"
+      ></goods-list>
+      <count-com :count="count"></count-com>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    var componenttitle = {
+      props: ["user"],
+      data: function () {
+        return {
+          msg: "我的商品",
+        };
+      },
+      template: `
+        <div class="title">
+          <p>{{user+"的商品"}}</p>
+        </div>
+        `,
+    };
+    var componentcount = {
+      props: ["count"],
+      data: function () {
+        return {};
+      },
+      template: `
+      <div class="counttitle">
+       <span><strong>总价:{{count}}</strong></span>
+       <button>结算</button>
+      </div>
+      `,
+    };
+    var componentgoods = {
+      props: ["goods"],
+      data: function () {
+        return {};
+      },
+      template: `
+      <div class="goods_list">
+       <ul>
+         <li v-for="(item,index) in goods">
+         <span>{{item.name}}</span>
+         <button v-on:click= "$emit('change-number',index)">+</button>
+         <input type="text" v-model="goods[index].number"/>
+         <button v-on:click="$emit('subtract-number',index)">-</button>
+         <span>价格:{{item.price+"￥"}}</span>
+         <button v-on:click="$emit('delete-number',index)">×</button>
+         </li>
+       </ul>
+      </div>
+      `,
+    };
+    let app = new Vue({
+      el: "#app",
+      data: {
+        user: "chen",
+        goods: [
+          {
+            id: 1,
+            name: "TCL彩电",
+            number: 1,
+            price: 500,
+          },
+          {
+            id: 2,
+            name: "机顶盒",
+            number: 1,
+            price: 300,
+          },
+          {
+            id: 3,
+            name: "海尔冰箱",
+            number: 1,
+            price: 800,
+          },
+          {
+            id: 4,
+            name: "小米手机",
+            number: 1,
+            price: 1999,
+          },
+          {
+            id: 5,
+            name: "PPTV电视",
+            number: 2,
+            price: 3000,
+          },
+        ],
+      },
+      computed: {
+        count: function () {
+          var sum = 0;
+          this.goods.forEach(function (item, index) {
+            sum = item.price * item.number + sum;
+          });
+          return sum;
+        },
+      },
+      methods: {
+        add: function (val) {
+          return this.goods[val].number++;
+        },
+        subtract: function (val) {
+          if (this.goods[val].number === 0) {
+            alert("无法继续减");
+          } else {
+            this.goods[val].number--;
+          }
+        },
+        del: function (val) {
+          return this.goods.splice(val, 1);
+        },
+      },
+      components: {
+        "title-com": componenttitle,
+        "count-com": componentcount,
+        "goods-list": componentgoods,
+      },
+    });
+  </script>
+</html>

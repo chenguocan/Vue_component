@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <menu-item title="父组件传过来的数据"></menu-item>
+    <menu-item v-bind:title="title"></menu-item>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.compoent("menu-item", {
+      props: ["title"],
+      template: "<div><{{title}}<div>",
+    });
+    let app = new Vue({
+      el: "#app",
+      data: {},
+    });
+  </script>
+</html>

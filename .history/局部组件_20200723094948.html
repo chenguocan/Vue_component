@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{first}}</div>
+      <second-component></second-component>
+      <third-component></third-component>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    // var HelloWorld = {
+    //   data: function () {
+    //     return {
+    //       msg: "HelloWorld",
+    //     };
+    //   },
+    //   template: "<h1>{{msg}}</h1>",
+    // };
+    // var HelloWorld2 = {
+    //   data: function () {
+    //     return {
+    //       msg: "HelloWorld2",
+    //     };
+    //   },
+    //   template: "<h1>{{msg}}</h1>",
+    // };
+    // var HelloWorld3 = {
+    //   data: function () {
+    //     return {
+    //       msg: "HelloWorld3",
+    //     };
+    //   },
+    //   template: "<h1>{{msg}}</h1>",
+    // };
+    Vue.component("second-component", {
+      data: function () {
+        return {
+          second: "二级组件",
+        };
+      },
+      template: `
+      <div>
+      <div>{{second}}</div>
+      </div>`,
+    });
+    Vue.component("third-component", {
+      data: function () {
+        return {
+          third: "三级组件",
+        };
+      },
+      template: `
+      <div>
+      <div>{{third}}</div>
+      </div>`,
+    });
+    let app = new Vue({
+      el: "#app",
+      data: {
+        first: "顶层组件",
+      },
+      // components: {
+      //   "hello-world": HelloWorld,
+      //   "hello-world2": HelloWorld2,
+      //   "hello-world3": HelloWorld3,
+      // },
+    });
+  </script>
+</html>

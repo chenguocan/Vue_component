@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <item-com :title="str" :com-num="12"></item-com>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.component("item-com", {
+      props: ["title", "com-num"],
+      template: `
+      <div>{{title}}</div>
+      <div>{{com-num}}</div>
+        `,
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        str: "hello",
+        num: "",
+      },
+    });
+  </script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <blog-post>
+        <template v-slot:header>
+          <h1>About me</h1>
+        </template>
+        <p>你好啊</p>
+        <template v-slot:footer>
+          <p>hello world</p>
+        </template>
+        <p>iiii</p>
+      </blog-post>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.component("blog-post", {
+      render: function (createElement) {
+        var header = this.$slots.header;
+        var body = this.$slots.default;
+        var footer = this.$slots.footer;
+        console.log(body);
+        return createElement("div", [
+          createElement("header", header),
+          createElement("main", body),
+          createElement("footer", footer),
+        ]);
+      },
+    });
+    let app = new Vue({
+      el: "#app",
+      data: {},
+    });
+  </script>
+</html>

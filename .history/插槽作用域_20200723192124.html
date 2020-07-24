@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <fruit-list v-bind:list="list">
+        <template v-slot:fruit_id> </template>
+      </fruit-list>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.component("fruit-list", {
+      props: ["list"],
+    });
+    let app = new Vue({
+      el: "#app",
+      data: {
+        list: [
+          {
+            id: 1,
+            name: "apple",
+          },
+          {
+            id: 2,
+            name: "orange",
+          },
+          {
+            id: 3,
+            name: "banana",
+          },
+        ],
+      },
+    });
+  </script>
+</html>

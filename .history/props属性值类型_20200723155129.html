@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-bind:style="{fontSize:fontSize + 'px'}">{{str}}</div>
+      <item-com
+        :title="str"
+        :num="12"
+        :arr="arr"
+        :people="peo"
+        v-on:enlarge-text="handle"
+      ></item-com>
+    </div>
+  </body>
+  <script src="./js/vue.js"></script>
+  <script>
+    Vue.component("item-com", {
+      props: ["title", "num", "arr", "people"],
+      template: `
+      <div>{{title}}
+      <div>{{num}}</div>
+      <ul>
+         <li v-for="(item,index) in arr">{{item}}</li>
+      </ul>
+      <button @click="arr.push('lemon')">提交</button>
+      <button v-on:click='$emit("enlarge-text")''>扩大</button>
+      <ul>
+      <li>
+         {{people.name}}
+      </li>
+      </ul>
+      </div>
+
+        `,
+    });
+
+    let app = new Vue({
+      el: "#app",
+      data: {
+        fontSize: 10,
+        str: "hello",
+        num: "12",
+        arr: ["orange", "apple", "banana"],
+        peo: {
+          name: "chen",
+          age: "18",
+          profession: "doctor",
+        },
+      },
+      methods: {
+        handle: function () {
+          console.log("123");
+        },
+      },
+    });
+  </script>
+</html>
